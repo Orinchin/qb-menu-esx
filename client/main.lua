@@ -15,6 +15,15 @@ end
 local function openMenu(data, sort, skipFirst)
     if not data or not next(data) then return end
     if sort then data = sortData(data, skipFirst) end
+    	for _,v in pairs(data) do
+		if v["icon"] then
+			if ox_inventory:Items()[tostring(v["icon"])] then
+				v["icon"] = 'ox_inventory/web/images/'..ox_inventory:Items()[tostring(v["icon"])].name..'.png'
+            elseif string.find(v["icon"], 'weapon_') then
+                v["icon"] = 'ox_inventory/web/images/'..v["icon"]..'.png'
+			end
+		end
+	end
     SetNuiFocus(true, true)
     headerShown = false
     sendData = data
